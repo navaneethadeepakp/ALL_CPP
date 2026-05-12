@@ -6,7 +6,7 @@
 /*   By: naperisw <naperisw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:11:03 by naperisw          #+#    #+#             */
-/*   Updated: 2026/05/06 12:25:17 by naperisw         ###   ########.fr       */
+/*   Updated: 2026/05/11 20:00:41 by naperisw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Contact::~Contact(){
 
 }
 
-void Contact::setConatactInfo(std::string fName, std::string lName, std::string nName, std::string phone, std::string secret)
+void Contact::setContact(std::string fName, std::string lName, std::string nName, std::string phone, std::string secret)
 {
 	firstName = fName;
 	lastName = lName;
@@ -29,7 +29,11 @@ void Contact::setConatactInfo(std::string fName, std::string lName, std::string 
 	darkestSecret = secret;
 }
 
-void Contact::displayContact() const
+std::string Contact::getFirstName() const { return firstName; }
+std::string Contact::getLastName() const { return lastName; }
+std::string Contact::getNickName() const { return nickname; }
+
+void Contact::displayFullContact() const
 {
 	std::cout << "First Name: " << firstName << std::endl;
 	std::cout << "Last Name: " << lastName << std::endl;

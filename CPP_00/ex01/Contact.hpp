@@ -6,14 +6,14 @@
 /*   By: naperisw <naperisw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:01:51 by naperisw          #+#    #+#             */
-/*   Updated: 2026/05/06 12:15:18 by naperisw         ###   ########.fr       */
+/*   Updated: 2026/05/11 20:11:03 by naperisw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
-#include <string>
 #include <iostream>
+#include <string>
 
 class Contact {
 	private:
@@ -26,8 +26,13 @@ class Contact {
 		Contact();
 		~Contact();
 
-		void setConatactInfo(std::string fName, std::string lName, std::string nName, std::string phone, std::string secret);
-		void displayContact() const;
+		void setContact(std::string fName, std::string lName, std::string nName, std::string phone, std::string secret);
+
+		std::string getFirstName() const;
+		std::string getLastName() const;
+		std::string getNickName() const;
+
+		void displayFullContact() const;
 };
 
 #endif

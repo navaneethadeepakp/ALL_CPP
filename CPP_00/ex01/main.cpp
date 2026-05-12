@@ -6,27 +6,43 @@
 /*   By: naperisw <naperisw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:18:06 by naperisw          #+#    #+#             */
-/*   Updated: 2026/05/06 12:26:03 by naperisw         ###   ########.fr       */
+/*   Updated: 2026/05/07 13:11:30 by naperisw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <iomanip>
-#include <string>
-
-std::string formatColumn(std::string text) {
-	if (text.length() > 10) {
-		return text.substr(0, 9) + ".";
-	}
-	return text;
-}
+#include "PhoneBook.hpp"
 
 int main()
 {
-	std::string name1 = "neethu";
-	std::string name2 = "neetha";
+	PhoneBook myBook;
+	std::string command;
 
-	std::cout << std::setw(10) << formatColumn(name1) << "|" << std::endl;
-	std::cout << std::setw(10) << formatColumn(name2) << "|" << std::endl;
+	std::cout << "Welcome to the 80s PhoneBook" << std::endl;
+	std::cout << "Available commands: ADD, SELECT, EXIT" << std::endl;
+
+	while (true) {
+		std::cout << "\nPhoneBook> ";
+		if (!std::getline(std::cin, command)) {
+			std::cout << "\nEOF detected. Exiting PhoneBook." << std::endl;
+			break;
+		}
+		for (size_t i = 0; i < command.length(); i++) {
+            command[i] = toupper(command[i]);
+        }
+
+		if (command == "ADD"){
+			myBook.addContact();
+		}
+		else if (command == "SEARCH") {
+			myBook.searchContacts();
+		}
+		else if (command == "EXIT") {
+			std::cout << "Shuting down PhoneBook. Goodbye!" <<std::endl;
+			break;
+		}
+		else if (!command.empty()) {
+			std::cout << "Command not recognized, Please use ADD, SEARCH, or EXIT" << std::endl;
+		}
+	}
 	return 0;
 }
