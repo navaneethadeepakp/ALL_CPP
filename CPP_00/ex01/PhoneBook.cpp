@@ -52,11 +52,9 @@ void PhoneBook::addContact() {
 
 	contacts[currentIndex].setContact(fName, lName, nName, phone, secret);
 
-	currentIndex++;
-	if (currentIndex == 8)
-		currentIndex = 0;
-	if (currentIndex < 8)
+	if (totalContacts < 8)
 		totalContacts++;
+	currentIndex = (currentIndex + 1) % 8;
 	std::cout << " Contact Succesfully Added" << std::endl;
 }
 
@@ -72,12 +70,12 @@ void PhoneBook::searchContacts() const {
     	std::cout << "PhoneBook is empty" << std::endl;
 		return ;
 	}
-	std::cout << "-------------------------------------------------------" <<std::endl;
+	std::cout << "---------------------------------------------" <<std::endl;
 	std::cout << "|" << std::setw(10) << "Index"
 			  << "|" << std::setw(10) << "First Name"
 			  << "|" << std::setw(10) << "Last Name"
 			  << "|" << std::setw(10) << "Nick Name" << "|" << std::endl;
-	std::cout << "-------------------------------------------------------" <<std::endl;
+	std::cout << "---------------------------------------------" <<std::endl;
 
 	for (int i = 0; i < totalContacts; i++) {
 		std::cout << "|" << std::setw(10) << i
@@ -85,7 +83,7 @@ void PhoneBook::searchContacts() const {
 				  << "|" << std::setw(10) << formatColumn(contacts[i].getLastName())
 				  << "|" << std::setw(10) << formatColumn(contacts[i].getNickName()) << "|" << std::endl;
 	}
-	std::cout << "-------------------------------------------------------" <<std::endl;
+	std::cout << "---------------------------------------------" <<std::endl;
 
 	std::string indexStr;
 	std::cout << "Enter the index of the conatct to view details: ";
@@ -100,6 +98,6 @@ void PhoneBook::searchContacts() const {
 			std::cout << "Invalid index! No contact exists at that number." << std::endl;
 		}
 	} else {
-		std::cout << "Invalid iinput! Please enter the valid number." << std::endl;
+		std::cout << "Invalid input! Please enter the valid number." << std::endl;
 	}
 }

@@ -18,7 +18,7 @@ int main()
 	std::string command;
 
 	std::cout << "Welcome to the 80s PhoneBook" << std::endl;
-	std::cout << "Available commands: ADD, SELECT, EXIT" << std::endl;
+	std::cout << "Available commands: ADD, SEARCH, EXIT" << std::endl;
 
 	while (true) {
 		std::cout << "\nPhoneBook> ";
