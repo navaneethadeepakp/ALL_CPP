@@ -5,7 +5,7 @@
 Sed::Sed(std::string filename) : _inFile(filename), _outFile(filename + ".replace") {}
 Sed::~Sed() {}
 
-void Sed::replace(std::string s1, std::string s2) {
+void Sed::ft_sed(std::string s1, std::string s2) {
 	std::ifstream ifs(_inFile.c_str());
 	if (!ifs.is_open()) {
 		std::cerr << "Error: Unable to open input file: " << _inFile << std::endl;

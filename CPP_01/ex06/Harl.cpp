@@ -17,3 +17,33 @@ void Harl::warning(void) {
 void Harl::error(void) {
     std::cout << "[ ERROR ]\nThis is unacceptable! I want to speak to the manager now." << std::endl;
 }
+
+void Harl::complainFilter(std::string level) {
+	std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+		int levelIndex = -1;
+
+		for (int i = 0; i < 4; i++) {
+			if (levels[i] == level) {
+				levelIndex = i;
+				break;
+			}
+		}
+
+		switch (levelIndex) {
+			case 0:
+				this->debug();
+				/* fall through */
+			case 1:
+				this->info();
+				/* fall through */
+			case 2:
+				this->warning();
+				/* fall through */
+			case 3:
+				this->error();
+				break;
+			default:
+				std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+				break;
+		}
+	}

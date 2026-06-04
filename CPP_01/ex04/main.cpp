@@ -7,6 +7,6 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 	Sed sedFile(argv[1]);
-	sedFile.replace(argv[2], argv[3]);
+	sedFile.ft_sed(argv[2], argv[3]);
 	return 0;
 }
