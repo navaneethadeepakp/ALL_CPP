@@ -5,7 +5,6 @@ int main(int argc, char **argv) {
 		std::cerr << "Usage: ./harlFilter <level>" << std::endl;
 		return 1;
 	}
-	std::string input = argv[1];
 
 	Harl harl;
 	harl.complainFilter(argv[1]);
