@@ -4,17 +4,17 @@
 #include <iostream>
 
 class Fixed {
-	private:
-		int	_fixedPointValue;
-		static const int _fractionalBits = 8;
-	public:
-		Fixed();
-		Fixed(const Fixed &other);
-		Fixed &operator = (const Fixed &other);
-		~Fixed();
+    private:
+        int fixedPointVal;
+        static const int factBits = 8;
 
-		int getRawBits(void) const;
-		void setRawBits(int const raw);
+    public:
+        Fixed();
+        Fixed(const Fixed &original);
+        Fixed &operator = (const Fixed &original);
+        ~Fixed();
+
+        int getRawBits(void) const;
+        void setRawBits(int const raw);
 };
-
 #endif
