@@ -1,5 +1,5 @@
 Hello fox
-The quick brown fox jumps over the lazy dog.
+he quick brown fox jumps over the lazy dog.
 A fox is known to be very clever.
 What does the fox say?
 This file contains the word fox five times.

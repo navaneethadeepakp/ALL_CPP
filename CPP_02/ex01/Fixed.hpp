@@ -5,25 +5,26 @@
 #include <cmath>
 
 class Fixed {
-	private:
-		int	_fixedPointValue;
-		static const int _fractionalBits = 8;
-	public:
-		Fixed();
-		Fixed(const Fixed &other);
-		Fixed &operator = (const Fixed &other);
-		~Fixed();
+    private:
+        int fixedPointVal;
+        static const int fractBits = 8;
 
-        Fixed(const int intVal);
-        Fixed(const float floatVal);
+    public:
+        Fixed();
+		Fixed(const int n);
+		Fixed(const float f);
+        Fixed(const Fixed &original);
+        Fixed &operator = (const Fixed &original);
+        ~Fixed();
 
-		int getRawBits(void) const;
-		void setRawBits(int const raw);
 
-        float toFloat(void) const;
-        int toInt(void) const;
+		int toInt(void) const;
+		float toFloat(void) const;
+
+        int getRawBits(void) const;
+        void setRawBits(int const raw);
 };
 
-std::ostream &operator << (std::ostream &os, const Fixed &obj);
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
 
 #endif
