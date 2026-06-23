@@ -8,13 +8,13 @@ Fixed getArea(Point const a, Point const b, Point const p)
 	return val;
 }
 
-bool bsp(Point const a, Point const b, Point const c, Point const p)
+bool bsp(Point const a, Point const b, Point const c, Point const point)
 {
 	Fixed totalArea = getArea(a,b,c);
 	std::cout << "Total Area (Raw Bits): " << totalArea.getRawBits() << std::endl;
-	Fixed area1 = getArea(a,b,p);
-	Fixed area2 = getArea(b,c,p);
-	Fixed area3 = getArea(c,a,p);
+	Fixed area1 = getArea(a,b,point);
+	Fixed area2 = getArea(b,c,point);
+	Fixed area3 = getArea(c,a,point);
 
 	std::cout << "Area 1 (Raw Bits): " << area1.getRawBits() << std::endl;
 	std::cout << "Area 2 (Raw Bits): " << area2.getRawBits() << std::endl;

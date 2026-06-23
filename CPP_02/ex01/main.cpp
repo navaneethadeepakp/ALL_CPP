@@ -21,4 +21,4 @@ int main( void )
 	return 0;
 }
 
-// max value 2^23 is = 8388608
+// max value 2^23 is = 8388607
