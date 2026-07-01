@@ -34,5 +34,4 @@ class Contact {
 
 		void displayFullContact() const;
 };
-
 #endif
