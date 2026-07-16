@@ -1,0 +1,92 @@
+Evaluators at 42 absolutely love it when a student can explain why their code breaks under certain conditions. It proves you understand the underlying computer architecture, not just the C++ syntax.When you are in your evaluation, you want to lead the evaluator through the logic step-by-step. Here is the exact "pitch" you can use to impress them.The 3-Step Explanation for the Evaluator1. Start with the hardware limit."Our Fixed class stores the number inside a standard 32-bit int. A signed 32-bit integer has a physical maximum limit of 2,147,483,647."2. Explain the scale factor."However, the subject requires us to use 8 fractional bits. This means every number we pass into the constructor is multiplied by $2^8$ (which is 256) before it is stored in the integer."3. Deliver the final math."Because the number is scaled up by 256 before it goes into the box, we have to divide the integer limit by 256 to find our actual maximum input. Therefore, 2,147,483,647 / 256 = 8,388,607. If we input anything larger than 8,388,607, the bit-shift pushes the data into the sign bit, causing an integer overflow and corrupting the number."The "Show, Don't Tell" DemonstrationDuring the evaluation, offer to prove it to them live in your main.cpp. Evaluators respect students who can break their own code on command.Tell them: "Let me show you exactly where the integer overflows."Run this code for them:C++// This will work perfectly (Maximum safe limit)
+Fixed safeLimit(8388607.0f);
+Max Float Input: 8388607.99609f
+Min Integer Input: -8388608
+Min Float Input: -8388608.0f
+std::cout << "Safe Limit: " << safeLimit << std::endl;
+
+// This will overflow and break (1 step over the line)
+Fixed overflowLimit(8388608.0f);
+std::cout << "Overflow: " << overflowLimit << std::endl;
+When they see the first one print correctly and the second one print a massive negative garbage number, they will instantly sign off on your understanding of fixed-point memory.Der physikalische Grenzwert (The Physical Limit)Wir können die Gesetze der Mathematik nicht überlisten. Wenn der 32-Bit-Speicher voll ist, kippt das Vorzeichenbit und die Zahl kollabiert.(We cannot outsmart the laws of mathematics. When the 32-bit memory is full, the sign bit flips and the number collapses.)If you can confidently explain this to an evaluator, you won't just pass the defense; you will look like a senior developer who deeply understands system memory constraints.
+
+
+std::ostream function
+
+
+
+// To understand how this works, you only need to remember one golden rule: The C++ compiler reads chained operators strictly from Left to Right. Every time it completes a function, it takes the return value and permanently replaces that part of the code with it.
+
+// Here is the exact, step-by-step autopsy of what happens in the CPU when it reads this line:
+
+// std::cout << "the value is " << a << std::endl;
+
+// Step 1: The Text (The Built-in Function)
+// The compiler starts on the far left and grabs the first two things it sees connected by an operator:
+// std::cout << "the value is "
+
+// The Translation: The compiler looks in the standard library and converts this into:
+// operator<<(std::cout, "the value is ")
+
+// The Action: The built-in C++ function pushes the text "the value is " onto your terminal screen.
+
+// The Return: The function is programmed to return out;. It hands the std::cout object back to the main program.
+
+// The Substitution: The compiler deletes the code it just ran and replaces it with the returned object.
+
+// The remaining code now looks like this:
+// std::cout << a << std::endl;
+
+// Step 2: The Object (Your Custom Function)
+// The compiler moves to the right and grabs the next pair:
+// std::cout << a
+
+// The Translation: The compiler searches the libraries, fails, and then finds your custom code in Fixed.cpp. It converts it to:
+// operator<<(std::cout, a)
+
+// The Action: It enters your function. It calls a.toFloat() (which returns a float, like 5.5f), then passes that float to the standard std::cout machinery, printing 5.5 to your terminal.
+
+// The Return: Your function hits return out; and hands the std::cout object back again.
+
+// The Substitution: The compiler deletes std::cout << a and replaces it with the returned object.
+
+// The remaining code now looks like this:
+// std::cout << std::endl;
+
+// Step 3: The Endline (The Final Function)
+// The compiler grabs the final pair:
+// std::cout << std::endl
+
+// The Translation: std::endl is actually a tiny built-in function itself! The compiler translates this to:
+// operator<<(std::cout, std::endl)
+
+// The Action: The built-in function does two things: it prints a newline character (\n) to move your cursor down, and it "flushes" the stream (forces the computer to instantly draw everything on the screen).
+
+// The Return: It returns the std::cout object one last time.
+
+// The Substitution: The compiler replaces the code with the returned object.
+
+// The remaining code now looks exactly like this:
+// std::cout;
+
+// Step 4: The Semicolon (The Trash Can)
+// Now, the compiler has finished all the math and function calls. It is left holding the std::cout object, but it hits the semicolon: ;.
+
+// The Action: The semicolon tells the compiler: "The statement is over. Throw away whatever you are holding." The compiler drops the std::cout reference and successfully moves on to the next line of your program.
+
+
+// The Fixed-Point Lifecycle Reference
+// 1. The Setup (The Agreement)We decided that our integer fixedPointVal will hold our number, but with a "secret" decimal point.We use 8 fractional bits (a scale factor of $2^8 = 256$).The smallest step on our "ruler" is $1 / 256 = 0.00390625$.
+// 2. Conversion Phase: Human to MachineWhen you pass a number into your Fixed object, it must be "scaled" to fit the integer box.Integer Input (int n):We use bit-shifting: n << 8.Why? Shifting left by 8 is the same as multiplying by 256. This moves the "decimal point" to the right, leaving 8 empty zeros at the end to hold our fraction.Float Input (float n):We use math: roundf(n * 256).Why? We cannot bit-shift a float. Multiplying by 256 scales the float into our fixed-point integer range. We roundf() because the computer must store a whole number, and we need the nearest integer on our grid.
+// 3. Storage Phase: The "Amnesia"Once the constructor finishes, the Fixed object forgets if it was an int or a float. * It only knows that its fixedPointVal is an integer.It does not know that 1280 came from 5 or that 2588 came from 10.11.It just holds the "raw" value on the 256-step grid.
+// 4. The Precision Gap (Why we lose data)Your number 10.11 did not perfectly align with the grid lines.The computer's "ruler" only has markings every 0.00390625.$10.11$ falls between two markings.The computer snaps to the nearest marking (Step 2588).When you convert back, you get 10.109375 because that is exactly where the marking is. This is not a bug; it is the physical limit of 8-bit precision.
+// 5. Evaluation Phase: Machine to HumanWhen you print using std::cout << a, you are calling the operator<< function.The Translator: The function calls a.toFloat().The Unpacking: It takes your raw integer (e.g., 2588) and divides by 256.0f.The Result: You get back a standard C++ float (10.109375).The Delivery: The stream insertion operator << sends that float to the terminal.
+// The Return: The function returns std::ostream &out (the terminal object), allowing you to chain more commands like << std::endl.Summary Checklist for your Notes:<< 8 = Multiply by 256.>> 8 = Divide by 256 (integer truncation).roundf(n * 256) = Convert float to grid position.val / 256.0f = Convert grid position to float.ostream & = Keeping the "toolbox" alive for chaining.
+
+
+
+bsp
+
+"I researched how computer graphics engines check if a point is inside a triangle, and the standard mathematical approach is the Determinant Area Formula: 1/2 |(x2-x1)(y3-y1) - (x3-x1)(y2-y1)|.
+
+My getArea function is just an optimized version of this exact formula. I mapped the coordinates to my Point objects. I skipped the 1/2 because it algebraically cancels out during the comparison, which saves an unnecessary division. And instead of using a math library for absolute value, I just check if the result is less than 0 and multiply by -1."

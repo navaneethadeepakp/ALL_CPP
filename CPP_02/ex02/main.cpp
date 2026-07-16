@@ -4,17 +4,12 @@
 int main( void ) {
 
     Fixed a;
-    Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
 
     std::cout << a << std::endl;
     std::cout << ++a << std::endl;
     std::cout << a << std::endl;
     std::cout << a++ << std::endl;
     std::cout << a << std::endl;
-
-    std::cout << b << std::endl;
-
-    std::cout << Fixed::max( a, b ) << std::endl;
 
     Fixed const c(10.5f);
     Fixed const d(2.0f);
@@ -26,7 +21,6 @@ int main( void ) {
     std::cout << "c (10.5) / d (2.0) = " << c / d << std::endl;
     std::cout << "c (10.5) + neg (-5.25) = " << c + neg << std::endl;
 
-    // std::cout << std::boolalpha;
     std::cout << "c (10.5) > d (2.0)  : " << (c > d) << std::endl;
     std::cout << "c (10.5) < d (2.0)  : " << (c < d) << std::endl;
     std::cout << "c (10.5) >= c (10.5): " << (c >= c) << std::endl;
