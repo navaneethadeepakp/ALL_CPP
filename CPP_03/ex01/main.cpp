@@ -2,6 +2,7 @@
 
 int main()
 {
+    ClapTrap one;
     ScavTrap alpha("Alpha");
     ScavTrap beta("Beta");
     ScavTrap gama(alpha);

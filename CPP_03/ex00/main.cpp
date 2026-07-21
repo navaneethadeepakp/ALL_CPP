@@ -2,6 +2,7 @@
 
 int main()
 {
+    ClapTrap defaultRobo;
     ClapTrap myRobo("Bot1");
     std::cout << myRobo.getName() << " has " << myRobo.getHitpoints() << " hit points and " << myRobo.getEnergypoints() << " energy points" << std::endl;
     myRobo.attack("Bot2");

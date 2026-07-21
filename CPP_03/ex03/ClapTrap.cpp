@@ -1,8 +1,8 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() : name("unnamed"), hit_points(10), energy_points(10), attack_damage(0)
+ClapTrap::ClapTrap(): name("deafault"), hit_points(10), energy_points(10), attack_damage(0)
 {
-    std::cout << "ClapTrap default constructor called " << std::endl;
+    std::cout << "ClapTrap default constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(const std::string& rName): name(rName), hit_points(10), energy_points(10), attack_damage(0)
@@ -10,7 +10,7 @@ ClapTrap::ClapTrap(const std::string& rName): name(rName), hit_points(10), energ
     std::cout << "ClapTrap constructor called " << name << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap& other) : name(other.name), hit_points(other.hit_points), energy_points(other.energy_points), attack_damage(other. attack_damage)
+ClapTrap::ClapTrap(const ClapTrap& other): name(other.name), hit_points(other.hit_points), energy_points(other.energy_points), attack_damage(other. attack_damage)
 {
     std::cout << "ClapTrap copy constructor called" << std::endl;
 }
@@ -70,6 +70,8 @@ ClapTrap::~ClapTrap()
 std::string ClapTrap::getName() const{ return name;}
 unsigned int ClapTrap::getHitpoints() const{ return hit_points;}
 unsigned int ClapTrap::getEnergypoints() const{ return energy_points;}
+unsigned int ClapTrap::getAttackDamage() const{ return attack_damage;}
+
 // hitpoints- lose when take damge from enemy 
 // energy points - looses when attack the target or reapairing
 // Attack Action:
