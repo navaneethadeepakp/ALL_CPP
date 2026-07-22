@@ -6,7 +6,7 @@ int main()
     ScavTrap alpha("Alpha");
     ScavTrap beta("Beta");
     ScavTrap gama(alpha);
-std::cout <<"--------" << std::endl;
+    std::cout <<"--------" << std::endl;
 
     beta = alpha;
     alpha.attack("Enemy_bot");

@@ -21,14 +21,14 @@ FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) {
 FragTrap& FragTrap::operator = (const FragTrap& other) {
     if (this != &other)
     {
-        std::cout << "FragTRap copy assignment operator called" << std::endl;
+        std::cout << "FragTrap copy assignment operator called" << std::endl;
         ClapTrap::operator = (other);
     }
     return *this;
 }
 
 FragTrap::~FragTrap() {
-    std::cout << "FragTRap destructor called for " << name << std::endl;
+    std::cout << "FragTrap destructor called for " << name << std::endl;
 }
 
 void FragTrap::highFivesGuys(void)
