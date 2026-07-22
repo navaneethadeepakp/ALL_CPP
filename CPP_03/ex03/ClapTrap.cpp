@@ -66,29 +66,3 @@ ClapTrap::~ClapTrap()
 {
     std::cout << "ClapTrap destructor called for " << name << std::endl;
 }
-
-std::string ClapTrap::getName() const{ return name;}
-unsigned int ClapTrap::getHitpoints() const{ return hit_points;}
-unsigned int ClapTrap::getEnergypoints() const{ return energy_points;}
-unsigned int ClapTrap::getAttackDamage() const{ return attack_damage;}
-
-// hitpoints- lose when take damge from enemy 
-// energy points - looses when attack the target or reapairing
-// Attack Action:
-// Condition: Requires energy_points > 0 and hit_points > 0.  
-// Cost: Decreases energy_points by 1.  
-// Result: The target loses hit points (simulated via output message). 
-
-// Repair Action:Condition:
-// Requires energy_points > 0 and hit_points > 0. 
-// Cost: Decreases energy_points by 1. 
-// Result: Increases hit_points by the specified amount. 
-
-// Take Damage Action:
-// Result: Reduces hit_points by amount.  
-
-// The "Empty Tank" ScenarioYou are 100% correct about the limit.
-// Since each attack and repair costs 1 energy point, your robot acts like a battery.
-// If you start with 10 energy points, you can perform exactly 10 actions total.
-// Once that counter hits 0:  Your code will trigger the else block (the "no energy left" message) for any subsequent attack or beRepaired calls.  
-// However, because takeDamage does not require energy (it is something happening to you, not something you are doing), your robot can still be damaged even if it is completely out of energy.  
